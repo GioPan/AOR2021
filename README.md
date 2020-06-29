@@ -4,5 +4,5 @@ at the Department of Mathematical Sciences, University of Copenhagen.
 This directory contains tutorials, lectures, and exercises we will go through during the course.
 
 # Week 0
-Get started with Python following [this Python tutorial](pyton_tutorial.ipynb) and complete the exercises 
-starting with ``w0_`` in the [exercises folder](./exercises).
+Get started with Python following [this Python tutorial](pyton_tutorial.ipynb) and complete the 
+[startup exercises](exercises/w0_e1.md).
