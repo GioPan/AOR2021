@@ -1,10 +1,10 @@
-from cflp.flp import FacilityLocationProblem
-from cflp.flp_fullproblem import FullModel
-from cflp.flp_master import Master
+from gurobi_examples.cflp.flp import FacilityLocationProblem
+from gurobi_examples.cflp.flp_fullproblem import FullModel
+from gurobi_examples.cflp.flp_master import Master
 import random as r
-from procurement_problem.procurement_problem import ProcurementProblem
-from procurement_problem.pp_fullmodel import PPFullModel
-from procurement_problem.pp_rmp import PPRMP
+from gurobi_examples.procurement_problem.procurement_problem import ProcurementProblem
+from gurobi_examples.procurement_problem.pp_fullmodel import PPFullModel
+from gurobi_examples.procurement_problem.pp_rmp import PPRMP
 
 # =========================================
 # Experiments with Benders decomposition on

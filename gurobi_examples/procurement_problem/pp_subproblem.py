@@ -1,4 +1,4 @@
-from gurobipy.gurobipy import Model, GRB,Column
+from gurobipy.gurobipy import Model, GRB
 from procurement_problem.procurement_problem import ProcurementProblem
 class PPSP:
 
