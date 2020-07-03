@@ -7,3 +7,4 @@ venv
 *.log
 *.lp
 solutions/*
+gurobi_tutorials/.ipynb_checkpoints/
