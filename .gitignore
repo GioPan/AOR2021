@@ -8,3 +8,4 @@ venv
 *.lp
 solutions/*
 gurobi_tutorials/.ipynb_checkpoints/
+branch_and_bound/*
