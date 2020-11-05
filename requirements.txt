@@ -2,7 +2,7 @@ amply==0.1.2
 appnope==0.1.0
 attrs==19.3.0
 backcall==0.1.0
-bleach==3.1.0
+bleach==3.1.4
 coinor.blimpy==2.0.0
 coinor.gimpy==2.1.0
 coinor.grumpy==0.95.0
