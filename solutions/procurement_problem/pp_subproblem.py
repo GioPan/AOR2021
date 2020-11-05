@@ -1,5 +1,5 @@
 from gurobipy.gurobipy import Model, GRB
-from procurement_problem.procurement_problem import ProcurementProblem
+from solutions.procurement_problem.pp_problem import ProcurementProblem
 class PPSP:
 
     def __init__(self,pp:ProcurementProblem,material:int,pi:float):

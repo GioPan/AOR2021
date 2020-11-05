@@ -5,7 +5,7 @@ class ProcurementProblem:
     the procurement problem.
     """
 
-    def __init__(self,n_materials:int,costs:list,min_procurement:list,max_procurement:list,demand:float,consumption:list):
+    def __init__(self,n_materials:int,costs:dict,min_procurement:list,max_procurement:list,demand:float,consumption:dict):
         """
         Creates an instance of the production problem given its data.
         :param n_materials:

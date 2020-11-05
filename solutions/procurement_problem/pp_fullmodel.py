@@ -1,5 +1,5 @@
 from gurobipy.gurobipy import Model, GRB
-from procurement_problem.procurement_problem import ProcurementProblem
+from solutions.procurement_problem.pp_problem import ProcurementProblem
 
 
 class PPFullModel():
@@ -15,25 +15,16 @@ class PPFullModel():
         self.x = self.m.addVars(self.pp.n_materials, name="x")
 
         # Creates the objective
-
-        # Creates a cost dictionary where it stores the cost for each index
-        # Check the python tutorial for this class for how to construct a dictionary
-        # In this case we use comprehension
-        c = {i: self.pp.costs[i] for i in range(self.pp.n_materials)}
-
-        # The expression is obtained by multiplying x to c
+        # The expression is obtained by multiplying x to the costs dictionary.
         # See the Gurobi docs for tupledic product here
         # https://www.gurobi.com/documentation/8.1/refman/py_tupledict_prod.html
-        expr = self.x.prod(c)
+        expr = self.x.prod(self.pp.costs)
         self.m.setObjective(expr, GRB.MINIMIZE)
 
         # Creates the constraints
         self.m.addConstrs((self.x[i] <= self.pp.max_production[i] for i in range(self.pp.n_materials)), name='max_p')
         self.m.addConstrs((self.x[i] >= self.pp.min_production[i] for i in range(self.pp.n_materials)), name='min_p')
-
-        # Creates a consumption dictionary where it stores the consumption for each index
-        d = {i: self.pp.consumption[i] for i in range(self.pp.n_materials)}
-        self.m.addConstr(self.x.prod(d) >= self.pp.demand)
+        self.m.addConstr(self.x.prod(self.pp.consumption) >= self.pp.demand)
 
     def solve(self):
         """

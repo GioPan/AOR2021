@@ -1,9 +1,9 @@
-from gurobipy import Model, GRB
-
+from gurobipy.gurobipy import Model, GRB
+from solutions.cflp.flp import FacilityLocationProblem
 
 class FullModel:
 
-    def __init__(self, flp):
+    def __init__(self, flp:FacilityLocationProblem):
         self.flp = flp
         self.m = Model()
 

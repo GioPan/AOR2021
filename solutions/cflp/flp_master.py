@@ -1,29 +1,32 @@
-from gurobipy import Model, GRB
-from cflp.flp_fsp import FSP
-from cflp.flp_osp import OSP
+from gurobipy.gurobipy import Model, GRB
+
+from solutions.cflp.flp import FacilityLocationProblem
+from solutions.cflp.flp_fsp import FSP
+from solutions.cflp.flp_osp import OSP
 
 
 class Master:
 
-    def __init__(self, flp):
+    def __init__(self, flp:FacilityLocationProblem):
         self.flp = flp
         self.m = Model()
 
         # Creates the variables
-        x = self.m.addVars(flp.n_facilities, vtype=GRB.BINARY, name="x")
-        phi = self.m.addVar(name="phi")
+        self.x = self.m.addVars(flp.n_facilities, vtype=GRB.BINARY, name="x")
+        self.phi = self.m.addVar(name="phi")
 
         # Makes the variables visible in the callback
-        self.m._x = x
-        self.m._phi = phi
+        self.m._x = self.x
+        self.m._phi = self.phi
 
         # Creates the objective
-        expr = phi
+        expr = self.phi
         for i in range(flp.n_facilities):
-            expr += flp.fixed_costs[i] * x[i]
+            expr += flp.fixed_costs[i] * self.x[i]
         self.m.setObjective(expr, GRB.MINIMIZE)
 
     def solve(self):
+
         def callback(model, where):
             if where == GRB.Callback.MIPSOL:
                 x_val = model.cbGetSolution(model._x)
@@ -66,7 +69,7 @@ class Master:
 
     def print_solution(self):
         for i in range(self.flp.n_facilities):
-            print('%s %g' % (self.m._x[i].varName, self.m._x[i].x))
+            print('%s %g' % (self.x[i].varName, self.x[i].x))
         print('Obj: %g' % self.m.objVal)
 
 
