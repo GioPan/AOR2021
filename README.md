@@ -1,8 +1,8 @@
 # APPLIED OPERATIONS RESEARCH (AOR) 2020
-This is the official Git repository of the course AOR2020 
+This is the official Git repository of the course Applied Operations Research 2021 
 at the Department of Mathematical Sciences, University of Copenhagen.
-This directory contains tutorials, lectures, and exercises we will go through during the course.
+At this directory you will find tutorials, lectures and exercises.
 
-# Week 0
-Get started with Python following [this Python tutorial](pyton_tutorial.ipynb) and complete the 
-[startup exercises](exercises/w0_e1.md).
+# Preparation
+Get started with Python by following [this Python tutorial](python_material/pyton_tutorial.ipynb) and complete the 
+[startup exercises](python_material/python_exercises.md).
