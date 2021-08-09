@@ -4,5 +4,5 @@ at the Department of Mathematical Sciences, University of Copenhagen.
 At this directory you will find tutorials, lectures and exercises.
 
 # Preparation
-Get started with Python by following [this Python tutorial](python_material/pyton_tutorial.ipynb) and complete the 
+Get started with Python by following [this Python tutorial](python_material/python_tutorial.ipynb) and complete the 
 [startup exercises](python_material/python_exercises.md).
