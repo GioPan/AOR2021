@@ -1,4 +1,4 @@
-from gurobipy.gurobipy import  Model,GRB
+from gurobipy import  Model,GRB
 
 # Create the model object
 m = Model('diet_problem')
