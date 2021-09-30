@@ -30,17 +30,22 @@ class Master:
         '''
         return [self.x[i].x for i in range(self.fsp.n_facilities)], self.phi.x
 
-    def add_feasibility_cut(self,dualsCC:list,dualsDC:list):
+    def add_feasibility_cut(self,dualsCC:list,dualsDC:list, dualsPC:list):
         '''
-        Adds a feasibility cut given the duals of the feasibility subproblem (extreme rays of polyhedral cone V)
+        Adds a feasibility cut given the duals of the feasibility subproblem (extreme rays of polyhedral cone V).
+        Note that the dual variables corresponding to the percentage constraints do not show up in the cut as the
+        corresponding right-hand-side coefficient is 0.
         '''
         self.m.addConstr(quicksum([dualsCC[i] * self.x[i] for i in range(self.fsp.n_facilities)])
                          <= - sum([dualsDC[j] * self.fsp.demands[j] for j in range(self.fsp.n_customers)]))
+
         print("Added feasibility cut")
 
-    def add_optimality_cut(self,dualsCC:list,dualsDC:list):
+    def add_optimality_cut(self,dualsCC:list,dualsDC:list, dualsPC:list):
         '''
-        Adds an optimality cut given the duals of the optimality subproblem (extreme points of the dual of the optimality subproblem)
+        Adds an optimality cut given the duals of the optimality subproblem (extreme points of the dual of the optimality subproblem).
+        Note that the dual variables corresponding to the percentage constraints do not show up in the cut as the
+        corresponding right-hand-side coefficient is 0.
         '''
         self.m.addConstr(self.phi - quicksum([dualsCC[i] * self.x[i] for i in range(self.fsp.n_facilities)])
                          >= sum([dualsDC[j] * self.fsp.demands[j] for j in range(self.fsp.n_customers)]))

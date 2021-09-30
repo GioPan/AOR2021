@@ -15,6 +15,9 @@ from fsp_fullmodel import FullModel
 n_locations = 5
 n_customers = 5
 
+special_locations = [0,2]
+percentage_from_special_locations = 0.1
+
 r.seed(1)
 # Random capacity costs between 100 and 300
 fixed_costs = [(100 + (r.random() * 200)) for i in range(n_locations)]
@@ -30,7 +33,7 @@ capacities = [(120 + (r.random() * 20)) for i in range(n_locations)]
 
 # 2. Creates an instance of the flp
 # =================================
-fsp = FacilitySizingProblem(n_locations, n_customers, fixed_costs, delivery_costs, demands, capacities)
+fsp = FacilitySizingProblem(n_locations, n_customers, fixed_costs, delivery_costs, demands, capacities,special_locations,percentage_from_special_locations)
 
 # ===========================
 # 3. Solves the problem by BD
@@ -47,18 +50,18 @@ while not solved:
     # Check feasibility by solving the fsp
     feasibility_sp = FSP(fsp,x)
     feasibility_sp.solve()
-    fsp_obj, fsp_dualsCC, fsp_dualsDC = feasibility_sp.getResults()
+    fsp_obj, fsp_dualsCC, fsp_dualsDC, dualsPC = feasibility_sp.getResults()
     print("FSP obj ", fsp_obj)
     if fsp_obj > 0:
         # In this case we need a feasibility cut
         print("Adding a feasibility cut")
-        mp.add_feasibility_cut(fsp_dualsCC,fsp_dualsDC)
+        mp.add_feasibility_cut(fsp_dualsCC,fsp_dualsDC, dualsPC)
     else:
         print("Checking optimality")
         # In this case we can check optimality
         optimality_sp = OSP(fsp,x)
         optimality_sp.solve()
-        osp_obj, osp_dualsCC, osp_dualsDC = optimality_sp.getResults()
+        osp_obj, osp_dualsCC, osp_dualsDC, dualsPC = optimality_sp.getResults()
         print("Phi = ",phi)
         print("Obj = ", osp_obj)
         if phi >= osp_obj - 1e-6 :
@@ -66,7 +69,7 @@ while not solved:
             solved = True
         else:
             # In this case we add an optimality cut
-            mp.add_optimality_cut(osp_dualsCC, osp_dualsDC)
+            mp.add_optimality_cut(osp_dualsCC, osp_dualsDC, dualsPC)
 
 
 

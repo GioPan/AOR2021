@@ -1,4 +1,4 @@
-from gurobipy import Model, GRB
+from gurobipy import Model, GRB, quicksum
 from fsp_problem import FacilitySizingProblem
 
 class OSP:
@@ -20,6 +20,7 @@ class OSP:
         # Constraints
         self.capacity_constr = self.m.addConstrs(y.sum(i, '*') <= x[i] for i in range(self.fsp.n_facilities))
         self.demand_constr = self.m.addConstrs(y.sum('*', j) >= fsp.demands[j] for j in range(fsp.n_customers))
+        self.percentage_c = self.m.addConstrs(quicksum([y[i, j] for i in self.fsp.special_locations]) - self.fsp.percentage_from_special_locations * y.sum('*', j) >= 0 for j in range(self.fsp.n_customers))
 
     def solve(self):
         self.m.optimize()
@@ -36,5 +37,6 @@ class OSP:
         print(self.capacity_constr)
         dualsCC = self.m.getAttr(GRB.Attr.Pi, self.capacity_constr)
         dualsDC = self.m.getAttr(GRB.Attr.Pi, self.demand_constr)
+        dualsPC = [self.percentage_c[j].Pi for j in range(self.fsp.n_customers)]
 
-        return self.m.objVal, dualsCC, dualsDC
+        return self.m.objVal, dualsCC, dualsDC, dualsPC
