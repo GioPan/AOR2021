@@ -17,10 +17,11 @@ min_uptime = {}
 min_downtime = {}
 production_cost = {}
 loads = {}
+green = {}
 
 # 1.2 Reads the data of the generators from its file
 # Change the path to the generators file if you put it in a different folder
-generators_file = "path/to/the/location/of_the_file/loads.txt"
+generators_file = "path/to/the/location/of_the_file/generators.txt"
 # Here you are given an example of how to read the generators file
 # and assign the date to the dictonaries above.
 with open(generators_file) as f:
@@ -30,7 +31,7 @@ with open(generators_file) as f:
         if line_counter > 2:
             # The following line reads all elements in a line.
             # If it starts by U it returns a string otherwise a float
-            name, lb, ub, su_cost, comm_cost, ramping_lim, min_up, min_down, prod_cost = (float(n) if not n.startswith("U") else n for n in line.split())
+            name, lb, ub, su_cost, comm_cost, ramping_lim, min_up, min_down, prod_cost, green_status = (float(n) if not n.startswith("U") else n for n in line.split())
             power_lb[name]= lb
             power_ub[name] = ub
             start_up_cost[name] = su_cost
@@ -39,10 +40,12 @@ with open(generators_file) as f:
             min_uptime[name] = min_up
             min_downtime[name] = min_down
             production_cost[name] = prod_cost
+            green[name] = green_status
             line_counter = line_counter + 1
         else:
             line_counter = line_counter + 1
 
+print(green)
 # 1.3 TODO: Calculate the shedding cost a 2 * the highest production cost
 
 # 1.4. TODO: Read load data
