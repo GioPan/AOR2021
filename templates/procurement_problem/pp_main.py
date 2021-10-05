@@ -2,14 +2,14 @@ import random as r
 from pp_problem import ProcurementProblem
 from pp_fullmodel import PPFullModel
 from pp_rmp import RMP
-
+from pp_subproblem import PPSP
 
 # =========================================
 # Experiments with the procurement problem
 # =========================================
 
 # Creates the data of the problem
-from solutions.procurement_problem.pp_subproblem import PPSP
+
 
 r.seed(10)
 n_materials = 15
@@ -34,10 +34,10 @@ rmp = RMP(pp)
 # subproblems. In this case it easy to find extreme points of the sets S_m
 # since each set S_m has two extreme points: Q^Max_m and Q^Min_m (or 0).
 
-solution1 = tuple(pp.max_production[i] for i in range(pp.n_materials))
+solution1 = tuple(pp.max_procurement[i] for i in range(pp.n_materials))
 rmp.addColumn(solution1)
 
-solution2 = tuple(pp.min_production[i] for i in range(pp.n_materials))
+solution2 = tuple(pp.min_procurement[i] for i in range(pp.n_materials))
 rmp.addColumn(solution2)
 
 # 2. Here the DW algorithm begins

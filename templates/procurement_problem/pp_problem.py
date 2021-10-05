@@ -17,8 +17,8 @@ class ProcurementProblem:
         """
         self.n_materials = n_materials
         self.costs = costs
-        self.min_production = min_procurement
-        self.max_production = max_procurement
+        self.min_procurement = min_procurement
+        self.max_procurement = max_procurement
         self.demand = demand
         self.consumption = consumption
 

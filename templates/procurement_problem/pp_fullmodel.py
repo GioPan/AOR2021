@@ -22,8 +22,8 @@ class PPFullModel():
         self.m.setObjective(expr, GRB.MINIMIZE)
 
         # Creates the constraints
-        self.m.addConstrs((self.x[i] <= self.pp.max_production[i] for i in range(self.pp.n_materials)), name='max_p')
-        self.m.addConstrs((self.x[i] >= self.pp.min_production[i] for i in range(self.pp.n_materials)), name='min_p')
+        self.m.addConstrs((self.x[i] <= self.pp.max_procurement[i] for i in range(self.pp.n_materials)), name='max_p')
+        self.m.addConstrs((self.x[i] >= self.pp.min_procurement[i] for i in range(self.pp.n_materials)), name='min_p')
         self.m.addConstr(self.x.prod(self.pp.consumption) >= self.pp.demand)
 
     def solve(self):

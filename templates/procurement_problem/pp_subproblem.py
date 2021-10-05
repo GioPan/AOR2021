@@ -1,5 +1,6 @@
 from gurobipy import Model, GRB
 from pp_problem import ProcurementProblem
+
 class PPSP:
 
     def __init__(self,pp:ProcurementProblem,material:int,pi:float):
@@ -25,8 +26,8 @@ class PPSP:
 	# TODO: Create the objective function        
 
         # The constraints bind the value of x to a min and max production quantity
-        self.m.addConstr(self.x <=  self.pp.max_production[material])
-        self.m.addConstr(self.x >= self.pp.min_production[material])
+        self.m.addConstr(self.x <=  self.pp.max_procurement[material])
+        self.m.addConstr(self.x >= self.pp.min_procurement[material])
 
     def solve(self):
         """
